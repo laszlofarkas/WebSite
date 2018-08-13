@@ -1,1 +1,53 @@
-<h1>{{title}}</h1>
+<!-- Page header -->
+<section class="hero is-dark">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        Publishing
+      </h1>
+      <h2 class="subtitle">
+        Dashboard
+      </h2>
+    </div>
+  </div>
+</section>
+
+<!-- Page content -->
+<section class="section">
+  <div class="container">
+
+    <!-- grid container for publishing list -->
+    <div class="publishing-container">
+
+      <!-- a publishing -->
+      <div class="card" *ngFor="let publishing of publishingList">
+
+        <!-- image of the publishing -->
+        <div class="card-image">
+          <figure class="image">
+            <img src="{{publishing.content.media.url}}" alt="{{publishing.content.media.filename}}">
+          </figure>
+        </div>
+
+        <!-- content of the publishing -->
+        <div class="card-content">
+          <div class="content">
+            {{publishing.content.message}}
+          </div>
+          <hr>
+          <div class="tags">
+            <span class="tag is-info" *ngFor="let tag of publishing.tags">
+              #{{tag}}
+            </span>
+          </div>
+          <div class="is-size-7">
+              Scheduled: {{publishing.scheduled | date}}
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</section>

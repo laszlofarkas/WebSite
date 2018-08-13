@@ -4,12 +4,13 @@ import { PublishingService } from './publishing.service';
 import { Publishing } from './publishing';
 
 @Component({
-  templateUrl: './dashboard.component.html'
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
 
   title = 'Hello Publishing!';
-  publishingList: Publishing[];
+  publishingList: Publishing[] = [];
 
   constructor(private publishingService: PublishingService) {}
 
@@ -19,7 +20,6 @@ export class DashboardComponent implements OnInit {
 
   listPublishing(): void {
     this.publishingService.list().subscribe((publishingList) => {
-      console.log(publishingList);
       this.publishingList = publishingList;
     });
   }
