@@ -20,8 +20,7 @@
     <div class="publishing-container">
 
       <!-- a publishing -->
-      <div class="card" *ngFor="let publishing of publishingList">
-
+      <div class="card" *ngFor="let publishing of publishingList" routerLink="/publishing/edit/{{publishing.id}}">
         <!-- image of the publishing -->
         <div class="card-image">
           <figure class="image">
@@ -41,13 +40,20 @@
             </span>
           </div>
           <div class="is-size-7">
-              Scheduled: {{publishing.scheduled | date}}
+            Scheduled: {{publishing.scheduled | date}}
           </div>
         </div>
 
       </div>
 
     </div>
+
+    <button class="button is-primary" routerLink="/publishing/edit/">
+      <span class="icon">
+        <i class="fas fa-plus"></i>
+      </span>
+      <span>Add new publishing</span>
+    </button>
 
   </div>
 </section>

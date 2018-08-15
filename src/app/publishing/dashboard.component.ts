@@ -11,6 +11,7 @@ export class DashboardComponent implements OnInit {
 
   title = 'Hello Publishing!';
   publishingList: Publishing[] = [];
+  newHovered = false;
 
   constructor(private publishingService: PublishingService) {}
 
