@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { Publishing, Content, Media } from './publishing';
+import { PublishingService } from './publishing.service';
 
 @Component({
   templateUrl: './edit.component.html'
@@ -11,7 +12,8 @@ export class EditComponent implements OnInit {
 
   id = null;
   publishing: Publishing;
-  publishingForm: FormGroup = null;
+  publishingForm = null;
+  submitting = false;
 
   // list of possible options for network field
   networkList = [
@@ -25,7 +27,9 @@ export class EditComponent implements OnInit {
   ];
 
   constructor(
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private publishingService: PublishingService,
+    private router: Router;
   ) { }
 
   ngOnInit(): void {
@@ -35,22 +39,30 @@ export class EditComponent implements OnInit {
     // If path id path parameter given, the publishing will be modified
     // otherwise that is a new one
     if (this.id) {
-      // TODO implement get publishing by from server
+      this.publishingService.find(this.id).subscribe((publishing) => {
+        this.publishing = publishing;
+        this.iniForm();
+      });
     } else {
       this.publishing = new Publishing;
       this.publishing.content = new Content;
       this.publishing.content.media = new Media;
       this.publishing.status = 'draft';
       this.publishing.scheduled = new Date();
+      this.iniForm();
     }
+  }
 
-    // set up angular reactive form
+  /**
+   * Initialize Angular FormGroup to use in HTML
+   */
+  private iniForm() {
     this.publishingForm = new FormGroup({
       'message': new FormControl(this.publishing.content.message, [Validators.required]),
       'network': new FormControl(this.publishing.content.network, [Validators.required]),
       'postType': new FormControl(this.publishing.content.postType, [Validators.required]),
       'fileUrl': new FormControl(this.publishing.content.media.url),
-      'fileName': new FormControl(this.publishing.content.media.filename),
+      'fileName': new FormControl(this.publishing.content.media.fileName),
       'content': new FormControl(this.publishing.content.media.content)
     });
   }
@@ -71,12 +83,34 @@ export class EditComponent implements OnInit {
   }
 
   /**
-   * processing the submitted form's data
+   * processing the submitted form's data and update the publishing
    */
   onSubmit() {
-    console.log('submitted', this.publishingForm.value);
-
+    this.submitting = true;
+    if (this.publishingForm.valid) {
+      const values = this.publishingForm.value;
+      this.publishing.content.message = values.message;
+      this.publishing.content.network = values.network;
+      this.publishing.content.postType = values.postType;
+      this.publishing.content.media = new Media;
+      if (values.postType === 'photo') {
+        this.publishing.content.media.url = values.fileUrl;
+        this.publishing.content.media.fileName = values.fileName;
+      } else if (values.postType === 'text') {
+        this.publishing.content.media.content = values.content;
+      }
+      if (this.id) {
+        this.publishingService.update(this.id, this.publishing).subscribe(() => {
+          this.submitting = false;
+          this.router.navigateByUrl('publishing');
+        });
+      } else {
+        this.publishingService.create(this.publishing).subscribe(() => {
+          this.submitting = false;
+          this.router.navigateByUrl('publishing');
+        });
+      }
+    }
   }
-
 
 }

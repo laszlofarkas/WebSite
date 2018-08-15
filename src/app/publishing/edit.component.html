@@ -12,7 +12,9 @@
   </div>
 </section>
 
-<section class="section">
+<!-- form for publishing -->
+<!-- Loaded just after publishingForm has been initialized -->
+<section class="section" *ngIf="publishingForm">
   <div class="container">
 
     <form [formGroup]="publishingForm" (ngSubmit)="onSubmit()">
@@ -148,8 +150,12 @@
         <div class="field-body">
           <div class="field">
             <div class="control buttons">
-              <button class="button is-primary" [disabled]="!publishingForm.valid" [ngClass]="{'is-outlined': !publishingForm.valid}">Post publishing</button>
-              <button class="button" routerLink="/publishing">Cancel</button>
+              <button class="button is-primary" [disabled]="submitting || !publishingForm.valid || !publishingForm.dirty"
+                [ngClass]="{'is-outlined': !publishingForm.valid, 'is-loading': submitting}"
+                [title]="!publishingForm.valid ? 'The form is invalid' : (!publishingForm.dirty ? 'Nothing to update' : '')">
+                {{ id ? 'Update' : 'Post' }} publishing
+              </button>
+              <button type="button" class="button" routerLink="/publishing">Cancel</button>
             </div>
           </div>
         </div>

@@ -17,7 +17,7 @@ export class Content {
 }
 
 export class Media {
-  filename: String;
+  fileName: String;
   url: String;
   content: String;
 }

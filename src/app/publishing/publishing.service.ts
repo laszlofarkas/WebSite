@@ -22,4 +22,16 @@ export class PublishingService {
   list(): Observable<Publishing[]> {
     return this.http.get<Publishing[]>(this.publishingUrl);
   }
+
+  find(id: String): Observable<Publishing> {
+    return this.http.get<Publishing>(this.publishingUrl + '/' + id);
+  }
+
+  create(publishing: Publishing): Observable<any> {
+    return this.http.put(this.publishingUrl, publishing);
+  }
+
+  update(id: String, publishing: Publishing): Observable<any> {
+    return this.http.post(this.publishingUrl + '/' + id, publishing);
+  }
 }
