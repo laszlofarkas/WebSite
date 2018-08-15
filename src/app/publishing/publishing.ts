@@ -19,4 +19,5 @@ export class Content {
 export class Media {
   filename: String;
   url: String;
+  content: String;
 }

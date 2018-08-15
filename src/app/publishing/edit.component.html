@@ -12,4 +12,150 @@
   </div>
 </section>
 
-publishing {{id}}!
+<section class="section">
+  <div class="container">
+
+    <form [formGroup]="publishingForm" (ngSubmit)="onSubmit()">
+
+      <!-- Network field -->
+      <div class="field is-horizontal">
+        <!-- label -->
+        <div class="field-label is-normal">
+          <label for="network" class="label">Network</label>
+        </div>
+        <!-- field -->
+        <div class="field-body">
+          <div class="field is-narrow">
+            <div class="control">
+              <div class="select" [ngClass]="{'is-danger': getErrors('network')}">
+                <select name="network" id="network" formControlName="network">
+                  <option [ngValue]="null" disabled selected>Please select an option</option>
+                  <option *ngFor="let network of networkList" [ngValue]="network.key">{{network.name}}</option>
+                </select>
+              </div>
+            </div>
+            <!-- error message -->
+            <p class="help is-danger" *ngIf="getErrors('network')">
+              Network is required
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- PostType field -->
+      <div class="field is-horizontal">
+        <!-- label -->
+        <div class="field-label is-normal">
+          <label for="postType" class="label">Post type</label>
+        </div>
+        <!-- field -->
+        <div class="field-body">
+          <div class="field is-narrow">
+            <div class="control">
+              <div class="select" [ngClass]="{'is-danger': getErrors('postType')}">
+                <select name="postType" id="postType" formControlName="postType">
+                  <option [ngValue]="null" disabled selected>Please select an option</option>
+                  <option *ngFor="let postType of postTypes" [ngValue]="postType.key">{{postType.name}}</option>
+                </select>
+              </div>
+            </div>
+            <!-- error message -->
+            <p class="help is-danger" *ngIf="getErrors('postType')">
+              Post type is required
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Media field for photo -->
+      <!-- File URL -->
+      <div class="field is-horizontal" *ngIf="publishingForm.value.postType === 'photo'">
+        <!-- label -->
+        <div class="field-label is-normal">
+          <label for="fileUrl" class="label">Photo URL</label>
+        </div>
+        <!-- field -->
+        <div class="field-body">
+          <div class="field">
+            <div class="control">
+              <input type="text" name="fileUrl" id="fileUrl" class="input" formControlName="fileUrl" [ngClass]="{'is-danger': getErrors('fileUrl')}"
+                placeholder="https://exampl.com/photo.jpg">
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- File Name -->
+      <div class="field is-horizontal" *ngIf="publishingForm.value.postType === 'photo'">
+        <!-- label -->
+        <div class="field-label is-normal">
+          <label for="fileName" class="label">Photo name</label>
+        </div>
+        <!-- field -->
+        <div class="field-body">
+          <div class="field">
+            <div class="control">
+              <input type="text" name="fileName" id="fileName" class="input" formControlName="fileName" placeholder="photo.jpg">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Media field for text -->
+      <!-- File URL -->
+      <div class="field is-horizontal" *ngIf="publishingForm.value.postType === 'text'">
+        <!-- label -->
+        <div class="field-label is-normal">
+          <label for="content" class="label">Text content</label>
+        </div>
+        <!-- field -->
+        <div class="field-body">
+          <div class="field">
+            <div class="control">
+              <textarea type="text" name="content" id="content" class="textarea" formControlName="content" [ngClass]="{'is-danger': getErrors('content')}"
+                placeholder="Text what you want to publish"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Message field -->
+      <div class="field is-horizontal">
+        <!-- label -->
+        <div class="field-label is-normal">
+          <label for="message" class="label">Message</label>
+        </div>
+        <!-- field -->
+        <div class="field-body">
+          <div class="field">
+            <div class="control">
+              <textarea type="text" name="message" formControlName="message" id="message" class="textarea" [ngClass]="{'is-danger': getErrors('message')}"
+                placeholder="Leave a message for this publishing"></textarea>
+            </div>
+            <p class="help is-danger" *ngIf="getErrors('message')">
+              Message is required
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Control buttons -->
+      <div class="field is-horizontal">
+        <!-- label -->
+        <div class="field-label">
+          <!-- Left empty for spacing -->
+        </div>
+        <!-- field -->
+        <div class="field-body">
+          <div class="field">
+            <div class="control buttons">
+              <button class="button is-primary" [disabled]="!publishingForm.valid" [ngClass]="{'is-outlined': !publishingForm.valid}">Post publishing</button>
+              <button class="button" routerLink="/publishing">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </form>
+
+  </div>
+</section>
