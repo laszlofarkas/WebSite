@@ -150,12 +150,12 @@
         <div class="field-body">
           <div class="field">
             <div class="control buttons">
-              <button class="button is-primary" [disabled]="submitting || !publishingForm.valid || !publishingForm.dirty"
-                [ngClass]="{'is-outlined': !publishingForm.valid, 'is-loading': submitting}"
+              <button class="button is-primary" [disabled]="submitting || !publishingForm.valid || !publishingForm.dirty" [ngClass]="{'is-outlined': !publishingForm.valid, 'is-loading': submitting}"
                 [title]="!publishingForm.valid ? 'The form is invalid' : (!publishingForm.dirty ? 'Nothing to update' : '')">
                 {{ id ? 'Update' : 'Post' }} publishing
               </button>
               <button type="button" class="button" routerLink="/publishing">Cancel</button>
+              <button type="button" class="button is-danger" (click)="delete()">Delete</button>
             </div>
           </div>
         </div>
@@ -165,3 +165,18 @@
 
   </div>
 </section>
+
+<div class="modal" [ngClass]="{'is-active': showModal}">
+  <div class="modal-background"></div>
+  <div class="modal-content">
+    <div class="message is-danger">
+      <div class="message-header">Are you sure to delete this publishing?</div>
+      <div class="message-body">
+        <div class="buttons">
+          <button class="button is-danger" (click)="modalConfirm()">Yes</button>
+          <button class="button" (click)="modalCancel()">No</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

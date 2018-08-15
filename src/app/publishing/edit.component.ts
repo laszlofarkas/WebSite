@@ -10,10 +10,11 @@ import { PublishingService } from './publishing.service';
 })
 export class EditComponent implements OnInit {
 
-  id = null;
+  id = null; // id of the current publishing if it is not new
   publishing: Publishing;
-  publishingForm = null;
-  submitting = false;
+  publishingForm = null; // angular reactive FormGroup
+  submitting = false; // determine is any rest request is in progress
+  showModal = false; // shows the delete modal
 
   // list of possible options for network field
   networkList = [
@@ -29,7 +30,7 @@ export class EditComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private publishingService: PublishingService,
-    private router: Router;
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -70,7 +71,7 @@ export class EditComponent implements OnInit {
   /**
    * Get all validation errors for the given field.
    * If there is no error or the user has not been touched that field it returns null
-   * @param {String} controlName Name of the FormControl
+   * @param {string} controlName Name of the FormControl
    */
   getErrors(controlName) {
     const status = this.publishingForm.get(controlName);
@@ -111,6 +112,20 @@ export class EditComponent implements OnInit {
         });
       }
     }
+  }
+
+  delete() {
+    this.showModal = true;
+  }
+
+  modalConfirm() {
+    this.publishingService.delete(this.id).subscribe(() => {
+      this.router.navigateByUrl('publishing');
+    });
+  }
+
+  modalCancel() {
+    this.showModal = false;
   }
 
 }

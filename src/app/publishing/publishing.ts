@@ -1,23 +1,23 @@
 export class Publishing {
   id: String;
   content: Content;
-  tags: Array<String>;
-  status: String;
+  tags: Array<string>;
+  status: string;
   channels: Array<Object>;
   scheduled: Date;
   geo: Object;
 }
 
 export class Content {
-  message: String;
-  id: String;
-  network: String;
-  postType: String;
+  message: string;
+  id: string;
+  network: string;
+  postType: string;
   media: Media;
 }
 
 export class Media {
-  fileName: String;
-  url: String;
-  content: String;
+  fileName: string;
+  url: string;
+  content: string;
 }
