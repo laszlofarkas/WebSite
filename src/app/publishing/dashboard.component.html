@@ -22,9 +22,14 @@
       <!-- a publishing -->
       <div class="card" *ngFor="let publishing of publishingList" routerLink="/publishing/edit/{{publishing.id}}">
         <!-- image of the publishing -->
-        <div class="card-image">
+        <div class="card-header">
+          <div class="content" *ngIf="publishing.content.postType === 'text'">
+            {{publishing.content.media.content}}
+          </div>
+        </div>
+        <div class="card-image" *ngIf="publishing.content.postType === 'photo'">
           <figure class="image">
-            <img src="{{publishing.content.media.url}}" alt="{{publishing.content.media.filename}}">
+            <img src="{{publishing.content.media.url}}" alt="{{publishing.content.media.fileName}}">
           </figure>
         </div>
 
