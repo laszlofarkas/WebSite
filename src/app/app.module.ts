@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { PublishingModule } from './publishing/publishing.module';
+import { ReachModule } from './reach/reach.module';
 
 @NgModule({
   declarations: [
@@ -12,6 +13,7 @@ import { PublishingModule } from './publishing/publishing.module';
   imports: [
     BrowserModule,
     PublishingModule,
+    ReachModule,
     AppRoutingModule
   ],
   providers: [],
