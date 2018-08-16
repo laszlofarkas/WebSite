@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { WebSocketSubject, webSocket } from 'rxjs/webSocket';
 
 import { Publishing } from './publishing';
 
@@ -14,6 +15,7 @@ const httpOptions = {
 export class PublishingService {
 
   private publishingUrl = 'http://localhost:3000/publishing';
+  private publishingWS = 'ws://localhost:3001/publishing';
 
   constructor(
     private http: HttpClient
@@ -58,5 +60,9 @@ export class PublishingService {
   delete(id: string): Observable<any> {
     // https://github.com/angular/angular/issues/18586 -> as 'json' is required
     return this.http.delete<string>(this.publishingUrl + '/' + id, {responseType: 'text' as 'json'});
+  }
+
+  websocket(): WebSocketSubject<Publishing> {
+    return webSocket<Publishing>(this.publishingWS);
   }
 }

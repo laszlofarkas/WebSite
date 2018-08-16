@@ -155,7 +155,7 @@
                 {{ id ? 'Update' : 'Post' }} publishing
               </button>
               <button type="button" class="button" routerLink="/publishing">Cancel</button>
-              <button type="button" class="button is-danger" (click)="delete()">Delete</button>
+              <button type="button" class="button is-danger" (click)="delete()" *ngIf="id">Delete</button>
             </div>
           </div>
         </div>
