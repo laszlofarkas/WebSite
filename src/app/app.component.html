@@ -1,2 +1,21 @@
+<nav class="navbar is-fixed-top is-light">
+  <div class="navbar-brand">
+    <div class="navbar-item">
+      <img src="https://lever-client-logos.s3.amazonaws.com/24481813-e1e1-46f6-9f36-c1099985bf10-1462345304796.png" alt="Faclon.io">
+    </div>
 
+    <a role="button" class="navbar-burger" data-target='navbarMenu' (click)="showMenu = !showMenu">
+      <div class="icon is-large">
+        <i class="fas fa-bars fa-2x"></i>
+      </div>
+    </a>
+  </div>
+
+  <div class="navbar-menu" id="navbarMenu" [ngClass]="{'is-active': showMenu}">
+    <div class="navbar-start">
+      <a role="button" class="navbar-item" routerLink="/publishing">Publishing</a>
+      <a role="button" class="navbar-item" routerLink="/publishing/edit">Reach</a>
+    </div>
+  </div>
+</nav>
 <router-outlet></router-outlet>
