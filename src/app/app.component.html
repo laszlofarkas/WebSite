@@ -4,11 +4,11 @@
       <img src="https://lever-client-logos.s3.amazonaws.com/24481813-e1e1-46f6-9f36-c1099985bf10-1462345304796.png" alt="Falcon.io">
     </div>
 
-    <a role="button" class="navbar-burger" data-target='navbarMenu' (click)="showMenu = !showMenu">
+    <button role="button" class="navbar-burger button" data-target='navbarMenu' (click)="showMenu = !showMenu">
       <div class="icon is-large">
         <i class="fas fa-bars fa-2x"></i>
       </div>
-    </a>
+    </button>
   </div>
 
   <div class="navbar-menu" id="navbarMenu" [ngClass]="{'is-active': showMenu}">
