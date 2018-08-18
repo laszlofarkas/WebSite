@@ -10,9 +10,7 @@ import { Publishing } from './publishing';
 })
 export class DashboardComponent implements OnInit, OnDestroy {
 
-  title = 'Hello Publishing!';
   publishingList: Publishing[] = [];
-  newHovered = false;
   private webSocket: WebSocketSubject<Publishing>;
 
   constructor(
@@ -31,7 +29,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   /**
    * Ger list of publishing from web server
    */
-  listPublishing(): void {
+  private listPublishing(): void {
     this.publishingService.list().subscribe((publishingList) => {
       this.publishingList = publishingList;
     });
@@ -40,7 +38,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   /**
    * listen on websocket for new incoming Publishing
    */
-  listenWebSocket() {
+  private listenWebSocket() {
     this.webSocket = this.publishingService.websocket();
     this.webSocket.subscribe(
       // new publish is received

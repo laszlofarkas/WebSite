@@ -30,7 +30,7 @@ export class AppComponent {
    */
   addDemoReach() {
     this.submittingReach = true;
-    const post_impressions = new PostImpressions();
+    let post_impressions = new PostImpressions();
     post_impressions.timestamp = new Date();
     post_impressions.value = '0';
 
@@ -38,6 +38,8 @@ export class AppComponent {
     reach.post_impressions_organic = [post_impressions];
     reach.post_impressions_viral = [post_impressions];
 
+    post_impressions = new PostImpressions();
+    post_impressions.timestamp = new Date();
     post_impressions.value = '10000';
     reach.post_impressions = [post_impressions];
     reach.post_impressions_paid = [post_impressions];
@@ -59,6 +61,8 @@ export class AppComponent {
     publishing.content.media = new Media();
     publishing.content.media.url = 'https://www.dutchwatersector.com/uploads/2016/05/dws-hofman-rubber-duck-macao-770px.jpg';
     publishing.content.media.fileName = 'dws-hofman-rubber-duck-macao-770px.jpg';
+    publishing.status = 'draft';
+    publishing.scheduled = new Date();
 
     this.publishingService.create(publishing).subscribe(() => {
       this.submittingPublish = false;

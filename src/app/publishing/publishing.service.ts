@@ -58,6 +58,9 @@ export class PublishingService {
     return this.http.delete<string>(this.publishingUrl + '/' + id, {responseType: 'text' as 'json'});
   }
 
+  /**
+   * Creat an observable WebSocket for listening new Publishing
+   */
   websocket(): WebSocketSubject<Publishing> {
     return webSocket<Publishing>(this.publishingWS);
   }

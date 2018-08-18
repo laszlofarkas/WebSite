@@ -1,27 +1,35 @@
-import { Component, OnInit, AfterContentInit } from '@angular/core';
+import { Component, OnInit, AfterContentInit, OnDestroy } from '@angular/core';
 import * as d3 from 'd3';
 
 import { ReachService } from './reach.service';
 import { Reach } from './reach';
+import { WebSocketSubject } from 'rxjs/webSocket';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit, AfterContentInit {
+export class DashboardComponent implements OnInit, AfterContentInit, OnDestroy {
 
   private reaches: Reach[];
   private totalCounter = 0;
   private organicCounter = 0;
   private viralCounter = 0;
   private paidCounter = 0;
+  private webSocket: WebSocketSubject<Reach>;
 
   constructor(
     private reachService: ReachService
   ) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.listenWebSocket();
+  }
+
+  ngOnDestroy() {
+    this.webSocket.unsubscribe();
+  }
 
   /**
    * Called by Angular after the template has been rendered
@@ -39,6 +47,25 @@ export class DashboardComponent implements OnInit, AfterContentInit {
       this.reaches = reaches;
       this.aggregatePieData(this.reaches);
     });
+  }
+
+  private listenWebSocket() {
+    this.webSocket = this.reachService.websocket();
+    this.webSocket.subscribe(
+      // new reach arrived
+      (reach: Reach) => {
+        this.reaches.push(reach);
+        this.aggregatePieData([reach]);
+      },
+      // error on websocket connection
+      (error) => {
+        console.log('WebSocket lost connection');
+        // try to reconnect
+        setTimeout(() => {
+          console.log('WebSocket try to reconnect');
+          this.listenWebSocket();
+        }, 1000);
+      });
   }
 
   /**
@@ -68,6 +95,9 @@ export class DashboardComponent implements OnInit, AfterContentInit {
    * Draw the content of the pie chart
    */
   private drawPieChart() {
+console.log('Draw');
+
+
     const pieChart: d3.Selection<any, any, any, any> = d3.select('#ReachPieChart');
 
     // reset
