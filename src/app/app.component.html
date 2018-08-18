@@ -16,6 +16,16 @@
       <a role="button" class="navbar-item" routerLink="/publishing">Publishing</a>
       <a role="button" class="navbar-item" routerLink="/reach">Reach</a>
     </div>
+
+    <div class="navbar-end">
+      <span class="navbar-item">For demo purpose</span>
+      <span role="button" class="navbar-item">
+        <button class="button" [ngClass]="{'is-loading': submittingPublish}" [disabled]="submittingPublish" (click)="addPublishing()">Add publishing</button>
+      </span>
+      <span role="button" class="navbar-item">
+        <button class="button" [ngClass]="{'is-loading': submittingReach}" [disabled]="submittingReach" (click)="addDemoReach()">Add reach</button>
+      </span>
+    </div>
   </div>
 </nav>
 <router-outlet></router-outlet>

@@ -19,4 +19,8 @@ export class ReachService {
   list(): Observable<Reach[]> {
     return this.http.get<Reach[]>(this.reachUrl);
   }
+
+  create(reach: Reach): Observable<string> {
+    return this.http.put<string>(this.reachUrl, reach, {responseType: 'text' as 'json'});
+  }
 }

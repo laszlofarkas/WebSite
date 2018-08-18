@@ -22,8 +22,8 @@
       <!-- a publishing -->
       <div class="card" *ngFor="let publishing of publishingList" routerLink="/publishing/edit/{{publishing.id}}">
         <!-- image of the publishing -->
-        <div class="card-header">
-          <div class="content" *ngIf="publishing.content.postType === 'text'">
+        <div class="card-header" *ngIf="publishing.content.postType === 'text'">
+          <div class="content">
             {{publishing.content.media.content}}
           </div>
         </div>
