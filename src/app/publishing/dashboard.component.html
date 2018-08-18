@@ -23,9 +23,7 @@
       <div class="card" *ngFor="let publishing of publishingList" routerLink="/publishing/edit/{{publishing.id}}">
         <!-- image of the publishing -->
         <div class="card-header" *ngIf="publishing.content.postType === 'text'">
-          <div class="content">
-            {{publishing.content.media.content}}
-          </div>
+          <div class="content multi-line-content" [innerHTML]="publishing.content.media.content"></div>
         </div>
         <div class="card-image" *ngIf="publishing.content.postType === 'photo'">
           <figure class="image">
@@ -35,9 +33,7 @@
 
         <!-- content of the publishing -->
         <div class="card-content">
-          <div class="content">
-            {{publishing.content.message}}
-          </div>
+          <div class="content multi-line-content">{{publishing.content.message}}</div>
           <hr>
           <div class="tags">
             <span class="tag is-info" *ngFor="let tag of publishing.tags">

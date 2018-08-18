@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { WebSocketSubject, webSocket } from 'rxjs/webSocket';
 
+import { environment } from '../../environments/environment';
+
 import { Publishing } from './publishing';
 
 @Injectable({
@@ -10,8 +12,8 @@ import { Publishing } from './publishing';
 })
 export class PublishingService {
 
-  private publishingUrl = 'http://localhost:3000/publishing';
-  private publishingWS = 'ws://localhost:3001/publishing';
+  private publishingUrl = environment.httpServerUrl + '/publishing';
+  private publishingWS = environment.wsServerUrl + '/publishing';
 
   constructor(
     private http: HttpClient

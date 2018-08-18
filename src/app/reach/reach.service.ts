@@ -3,16 +3,17 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { WebSocketSubject, webSocket } from 'rxjs/webSocket';
 
-import { Reach } from './reach';
+import { environment } from '../../environments/environment';
 
+import { Reach } from './reach';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReachService {
 
-  private reachUrl = 'http://localhost:3000/reach';
-  private reachWS = 'ws://localhost:3001/reach';
+  private reachUrl = environment.httpServerUrl + '/reach';
+  private reachWS = environment.httpServerUrl + '/reach';
 
   constructor(
     private http: HttpClient
