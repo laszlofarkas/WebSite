@@ -12,8 +12,13 @@
   </div>
 </section>
 
+<!-- Chart -->
 <section class="section">
   <div class="container">
-    <svg id="ReachGraph" width="300" height="200"></svg>
+    <div class="reach-container">
+      <figure class="svg-container">
+        <svg id="ReachPieChart" class="pie-chart" (window:resize)="resize()"></svg>
+      </figure>
+    </div>
   </div>
 </section>
